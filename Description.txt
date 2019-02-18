@@ -1,0 +1,92 @@
+Client - application, installed on your mobile phone, laptop or web app.
+Clients belong to the same user.
+Client is monitoring the changing of files in certain folders.
+{
+   Watcher wathces particular folders. As soon as we do some action in folder: put some file,
+   the watcher will be notified for particular changes. Then watcher the notifies chunker and the indexer that some changes has happened
+   and it passes the pathes to the added files.
+
+   Chunker converts file into multiple chunks, then it computes hashes for each chunk and gets unique identifier for the file and each chunk.
+   Chunker uploads this file to the cloudService(sends that hash to the cloud storage) and gets back url, where data is saved.
+   After that chunker sends hash with the url to the Indexer.
+
+   Indexer receives the url and hasher from the chunker and it updates the information in the internal DB against the file, for which those hash
+   belongs to. Also a copy of metadata is save in Internal DB. For conflict resolution or store metadata if the device is offline.
+   Then indexer has to notify messaging service(about all changes which happen to the file,chunks,hashes) which it does by sending appropriate data
+   incapsulated in Message to the Messaging queue or pipe. That message will be picked up by the SyncService(synchronization services).
+
+   As soon as we add a file to the folder the same thing should replicate on other devices(clients), connected to this user. Therefore Indexer should
+   notify Messaging Service or Synchronization that there is some modification or deletion happened to the file.
+   Sync service updates metadata about the file and other information to database. Sync service also sends back a message to one more(concurrent,parallel)
+   queue and those messages will be broadcasted to the other clients of that particular user.
+
+   After the clients receive that message the Indexer will fetch that file from the Cloud Storage and recreate that file(from chunks,hash). So a user will
+   have some same copies of file in different devices.
+   
+}
+Cloud service stores the chunks or full file(Amazon S3).
+
+Querying or asynchronous messaging service(Apache Kafka,RabbitMQ).
+
+Messaging Service detailed
+{
+   Why do we need a messaging queue, not just Sync service. Two types of queues: requests and response. Let's assume the client1 or the client which is
+   looking at the file, saw that some changes happened to that file or it was newly added. So that cloud upload it to the service and how has all
+   information about chunks, metadata. Client1 post all the metadata information through the request queue. We need asynchronous queue because other
+   devices might be connected to the internet or might not. We can't just rely in a synchronous manner to send updates about the files or sync the files.
+   We need a mechanism where this updates are kind of buffered and send back to the server and or get same metadata information about the files. 
+   Client1 post all the metadata information through the request queue and queue is connected to the sync service. Message would be read be the sync
+   services. Sync service will update metadata DB, cache. Also the Sync Service will broadcast back to all the other clients for the same user
+   which are registered received message through the response queue(1,2,3). Queues helps to buffer updates. If other two clients are disconnected
+   , that message will stay in the queue, will never get lost. Whenever we know, that clients(2,3) are connected to the service, this metadata would
+   be delivered. As soon as clients receive those metadata, they know what to do with it. They know the url, from where they should fetch those chunks
+   and download update respective files. If they don't have the file, the will download it, otherwise they would just download the chunk, which was updated
+   from the client one.
+}
+
+Metadate database,architecture
+{
+   metadate contains information about the hash,chunks of the file, information about the file and it's version. It also contains information about
+   the user and what workspace they were working on now, using particular client. We can't use database like DBMS(Database management system), because
+   what we need importantly is the consistency. We need metadata to be consistent among different clients.
+   So what metadata we will store
+   {
+       It would be a json object, which has this properties.
+       {
+	"chunk_id":string,
+	"chunk_order":number, (we break the file in different pieces and should now the order in which chunks should be stiched back to the original file
+	"object":{
+		"version":number,
+		"is_folder":boolean
+		"modified":number,
+		"file_name":string,
+		"file_extention":string,
+		"file_size":number,
+		"file_path" : string,
+		"user":{
+			"user_name":string,
+			"email":string,
+			"quota_limit":number,
+			"quota_used":number,
+			"device":{
+				"device_name":string
+				"sync_folder":string
+			}
+		}
+	}
+      }
+   }
+   Not as simple. Design made on MySql. Kind of difficult to scale. Dropbox used shaddy technique to distribute data across multiple MySql instances.
+   When database is filled we should add more database to accompany more metadata information. Dropbox build a wrapper around this shattered database.
+   It's not a good idea to fetch information from millions of databases when we get a response. We use cache. Edge checkes the cache and finds in the DB
+   If information isn't available in the cache go the Engine and unwrap the ORM(Object-Relational Mapping) and get all the  information about the file 
+   which clients are querying from database. It's that advantage to have a wrapper, not only MySql. Also the edge store by default provided the 
+   transactional isolation beetween different queries the clients are actually making to the dataBase.
+}
+
+Serve data at scale{
+   We need to make strategy based on the users home location. If the user is from Singapore(example) we have to place files of that user somewhere in
+   the databases near the Singapore. Whenever users request those files he has to download it as fast as possible. Use services like Akamai for MetaData
+   (Syrian Services). Dropbox clustered the users and put their servers or CDN (Content Delivery Network) near to the users. Cloud Storage(like Amazon S3).
+   Metadata databases should be chosen as close as possible to the user.
+}
