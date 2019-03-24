@@ -1,0 +1,18 @@
+1. Change the architecture of Project
+1.1)To constrain classes: Product, Branch within MyType namespace.
+1.2)To constrain classes: Map, HashNode, Hasher within MINE_STL namespace.
+1.3)Make HashNode as nested class for Map
+1.4)Segregate method declarations and implementations for template classes
+1.5)Add another class for function and prime integers generating
+1.3)Check whether build is succeeded.
+
+2. Improve hasher class options
+2.1) Provide an ability for user to create hash functor for own class.(std::hash<T> style)
+2.2) Complement hash function for pointer like types(strings - const char*, arrays - T*, T*)
+3.1) Change the idea of hashing due to some infinite loops in HashMap for certain data sets
+3.2) Add generating prime integers while creating FuncGenerator
+
+3. Make testing in separate class, namespace, project
+
+4. Additional
+4.1) Add dot format printing of hashtable with further GraphViz vizualization.
