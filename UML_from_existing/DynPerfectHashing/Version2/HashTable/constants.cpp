@@ -1,5 +1,4 @@
-#include"Hasher.h"
-#include"FunctionSet\FuncGenerator.h"
+#include"constants.h"
 
 namespace MINE_STL {
 	size_t _FNV_prime = 16777619U;

@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4ED99BB4-32F3-48C8-85F1-5FFC048B6649}</ProjectGuid>
-    <RootNamespace>Version2</RootNamespace>
+    <ProjectGuid>{C5928B98-854E-4537-80D3-E2104CDAC9CC}</ProjectGuid>
+    <RootNamespace>Tmpproject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -115,19 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HashTable\constants.cpp" />
-    <Text Include="HashTable\Hasher.tpp">
-      <FileType>Document</FileType>
-    </Text>
-    <ClCompile Include="HashTable\FunctionSet\FuncGenerator.cpp" />
-    <ClCompile Include="HashTable\HashMap.cpp" />
-    <ClCompile Include="Source_2.cpp" />
+    <ClInclude Include="Caller.h" />
+    <ClInclude Include="constants.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="HashTable\constants.h" />
-    <ClInclude Include="HashTable\FunctionSet\FuncGenerator.h" />
-    <ClInclude Include="HashTable\Hasher.h" />
-    <ClInclude Include="HashTable\HashMap.h" />
+    <ClCompile Include="constants.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

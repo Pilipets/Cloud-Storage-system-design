@@ -22,6 +22,9 @@
     <Filter Include="Source Files\HashTable">
       <UniqueIdentifier>{a2aa3461-ca4f-4c3a-8929-d156ccccea37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\HashTable\FunctionSet">
+      <UniqueIdentifier>{d65a0ba7-a654-4298-b0be-3c2dab6affbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source_2.cpp">
@@ -29,6 +32,12 @@
     </ClCompile>
     <ClCompile Include="HashTable\constants.cpp">
       <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\HashMap.cpp">
+      <Filter>Source Files\HashTable</Filter>
+    </ClCompile>
+    <ClCompile Include="HashTable\FunctionSet\FuncGenerator.cpp">
+      <Filter>Source Files\HashTable\FunctionSet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,5 +50,13 @@
     <ClInclude Include="HashTable\FunctionSet\FuncGenerator.h">
       <Filter>Header Files\HashTable\FunctionSet</Filter>
     </ClInclude>
+    <ClInclude Include="HashTable\constants.h">
+      <Filter>Header Files\HashTable</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="HashTable\Hasher.tpp">
+      <Filter>Source Files\HashTable</Filter>
+    </Text>
   </ItemGroup>
 </Project>
