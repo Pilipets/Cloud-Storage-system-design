@@ -13,6 +13,7 @@ namespace MINE_STL
 	template<class K, class V>
 	class Map
 	{
+		friend class Tester;
 		template<class K, class V>
 		class HashNode
 		{

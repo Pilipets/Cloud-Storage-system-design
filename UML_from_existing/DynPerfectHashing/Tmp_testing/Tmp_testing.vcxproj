@@ -47,6 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tmp_project\Tmp_project.vcxproj">
       <Project>{c5928b98-854e-4537-80d3-e2104cdac9cc}</Project>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

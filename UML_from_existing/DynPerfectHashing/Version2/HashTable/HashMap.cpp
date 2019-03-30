@@ -37,7 +37,7 @@ namespace MINE_STL {
 		}
 		if (item)
 		{
-			bool _new = false;
+			bool _new = true;
 			for (HashNode<K, V>* var : l)
 			{
 				if (var->key == item->key)
@@ -58,10 +58,9 @@ namespace MINE_STL {
 		//free memory for previous hashTable
 		for (int j = 0; j < s_M; j++)
 			if (T[j].Tj) delete[] T[j].Tj;
-		delete[] T;
+		if(T) delete[] T;
 
 		count = l.size();
-		const int c = 1;
 		M = 2 * fmax(count, 4);
 		s_M = (1.5)*M;
 		T = new RowContainer[s_M];
@@ -172,7 +171,7 @@ namespace MINE_STL {
 	}
 
 	template<class K, class V>
-	Map<K, V>::Map()
+	Map<K, V>::Map() : T(nullptr)
 	{
 		Initialize();
 	}
