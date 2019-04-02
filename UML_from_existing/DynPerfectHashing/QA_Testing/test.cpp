@@ -8,6 +8,8 @@ TEST(LinkError, extern)
 	MINE_STL::Hasher<int> getHashMINE;
 	std::hash<int> getHashSTD;
 	
+
+	//MINE_STL2::Hasher<int> getHash2;
 	//here come errors
 	EXPECT_EQ(getHashMINE(0), getHashSTD(0));
 }

@@ -1,10 +1,13 @@
 #pragma once
 #include"HashTableElem\HashNode.h"
+#include"Hasher.h"
 #include<list>
+#include<functional>
 #include<iostream>
 using std::list;
 using std::cout;
 
+namespace MINE_STL2 {
 	typedef unsigned int uint;
 
 	template<class K, class V>
@@ -274,3 +277,4 @@ using std::cout;
 			return -9999999999;
 		}
 	};
+}

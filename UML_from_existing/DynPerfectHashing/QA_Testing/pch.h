@@ -10,6 +10,8 @@
 #include<random>
 #include<string>
 #include"..\Version2\HashTable\HashMap.h"
+//#include"..\Version1\HashTable\HashMap.h"
+//#include"..\Version1\HashTable\Hasher.h"
 #include<unordered_map>
 
 class A {

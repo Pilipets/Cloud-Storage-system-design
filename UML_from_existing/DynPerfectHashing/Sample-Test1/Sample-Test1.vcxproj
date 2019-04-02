@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{b0dea217-2fd7-4957-87fd-e575bbdede3c}</ProjectGuid>
+    <ProjectGuid>{495b88aa-bf95-400b-807a-bb3a0990cbeb}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
@@ -45,9 +45,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Tmp_project\Tmp_project.vcxproj">
-      <Project>{c5928b98-854e-4537-80d3-e2104cdac9cc}</Project>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    <ProjectReference Include="..\Version1\Version1.vcxproj">
+      <Project>{1dfd6d6d-f55c-4e2a-a076-687b901171bc}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

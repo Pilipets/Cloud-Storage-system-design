@@ -22,7 +22,7 @@ int main()
 void Test1()
 {
 	Product p9, p10, p11, p12, p13;
-	Map<Product, int> mp;
+	MINE_STL2::Map<Product, int> mp;
 	mp.Insert(p9, 9);
 	mp.Insert(p10, 10);
 	mp.Insert(p11, 11);
@@ -37,7 +37,7 @@ void Test1()
 
 void Test2()
 {
-	Map<int,int> mp;
+	MINE_STL2::Map<int,int> mp;
 	for (int i = 0; i < 15; i++)
 		mp.Insert(rand(), i);
 	mp.show();
